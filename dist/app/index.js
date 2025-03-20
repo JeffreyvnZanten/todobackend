@@ -16,6 +16,9 @@ const connectionString = `postgres://${process.env.DB_USER}:${process.env.DB_PAS
 console.log(`Connecting to database with: ${connectionString}`);
 const client = (0, postgres_1.default)(connectionString, { ssl: false });
 const db = (0, postgres_js_1.drizzle)(client);
+console.log("DB_USER:", process.env.DB_USER);
+console.log("DB_PASSWORD:", process.env.DB_PASSWORD);
+console.log("DB_NAME:", process.env.DB_NAME);
 app.get("/", async (req, res) => {
     res.json({ status: "gesasast /: ok" });
 });
