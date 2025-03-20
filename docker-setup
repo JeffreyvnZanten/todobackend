@@ -37,8 +37,7 @@ RUN npm install --production
 COPY wait-for-db.sh /usr/local/bin/wait-for-db.sh
 RUN chmod +x /usr/local/bin/wait-for-db.sh
 
-# Print the directory structure for debugging
-RUN find . -type f | sort
+CMD ["node", "npm run db:migrate"]
 
 EXPOSE 3000
 
