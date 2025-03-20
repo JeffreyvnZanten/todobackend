@@ -37,6 +37,10 @@ RUN npm install --production
 COPY wait-for-db.sh /usr/local/bin/wait-for-db.sh
 RUN chmod +x /usr/local/bin/wait-for-db.sh
 
+RUN chown -R appuser:appgroup /src/app/drizzle \
+    && chmod -R 644 /src/app/drizzle
+
+
 CMD ["node", "npm run db:migrate"]
 
 EXPOSE 3000
