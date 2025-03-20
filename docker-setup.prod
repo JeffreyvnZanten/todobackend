@@ -25,8 +25,8 @@ RUN addgroup -g 1001 -S appgroup \
 WORKDIR /src/app
 
 # Copy only what's needed for production
-COPY --from=builder /src/app/dist ./dist
 COPY ./drizzle ./drizzle
+COPY --from=builder /src/app/dist ./dist
 COPY --from=builder /src/app/package*.json ./
 
 RUN npm install --production
@@ -35,7 +35,11 @@ RUN npm install --production
 COPY wait-for-db.sh /usr/local/bin/wait-for-db.sh
 RUN chmod +x /usr/local/bin/wait-for-db.sh
 
-# CMD ["node", "npm run db:migrate"]
+RUN chown -R appuser:appgroup /drizzle/ \
+    && chmod -R 644 /drizzle/
+
+
+CMD ["node", "npm run db:migrate"]
 
 EXPOSE 3000
 

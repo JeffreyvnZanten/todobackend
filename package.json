@@ -3,7 +3,8 @@
     "start": "ts-node src/app/index.ts",
     "build": "tsc",
     "db:generate": "drizzle-kit generate",
-    "docker:build": "docker-compose up --build"
+    "docker:remove": "docker-compose down -v",
+    "docker:build": "docker-compose up -d --build"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
