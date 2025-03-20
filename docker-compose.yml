@@ -11,7 +11,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:
-      - /etc/nope/.enc
+      - /etc/nope/.env
 
   app:
     build:
