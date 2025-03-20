@@ -24,6 +24,11 @@ app.get("/", async (req: Request, res: Response) => {
   res.json({ status: "gesasast /: ok" });
 });
 
+app.get("/todos", async (req: Request, res: Response) => {
+  const todos = await db.select().from(TodoTable);
+  res.json(todos);
+});
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
