@@ -11,7 +11,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file:
-      - /etc/nope
+      - /etc/nope/.enc
 
   app:
     build:
@@ -29,7 +29,7 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
     env_file:
-      - /etc/nope
+      - /etc/nope/.env
 
 volumes:
   postgres_data:
