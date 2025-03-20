@@ -30,6 +30,10 @@ COPY --from=builder /src/app/package*.json ./
 
 RUN npm install --production
 
+# Kopieer wait-for-db.sh en maak het uitvoerbaar
+COPY wait-for-db.sh /usr/local/bin/wait-for-db.sh
+RUN chmod +x /usr/local/bin/wait-for-db.sh
+
 # Print the directory structure for debugging
 RUN find . -type f | sort
 
