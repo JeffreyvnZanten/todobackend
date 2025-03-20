@@ -8,6 +8,7 @@ const postgres_js_1 = require("drizzle-orm/postgres-js");
 require("dotenv/config");
 const postgres_1 = __importDefault(require("postgres"));
 const schema_1 = require("../db/schema");
+const migrate_1 = require("../db/migrate");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 // Create a PostgreSQL client with proper configuration
@@ -16,13 +17,13 @@ console.log(`Connecting to database with: ${connectionString}`);
 const client = (0, postgres_1.default)(connectionString, { ssl: false });
 const db = (0, postgres_js_1.drizzle)(client);
 app.get("/", async (req, res) => {
-    res.json({ status: "get /: ok" });
+    res.json({ status: "gesasast /: ok" });
 });
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-    // runMigrations();
-    insertTestData();
+    (0, migrate_1.runMigrations)();
+    // insertTestData();
 });
 async function insertTestData() {
     try {
