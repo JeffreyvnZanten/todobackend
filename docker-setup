@@ -41,4 +41,4 @@ EXPOSE 3000
 
 USER appuser
 
-CMD ["node", "dist/app/index.js"]
+CMD ["/usr/local/bin/wait-for-db.sh", "node", "dist/app/index.js"]
