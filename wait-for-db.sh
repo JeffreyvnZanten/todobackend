@@ -5,7 +5,6 @@ set -e
 
 host="$DB_HOST"
 port="$DB_PORT"
-shift
 
 # Wait for the database to be ready
 echo "Waiting for PostgreSQL to be ready on $host:$port..."
