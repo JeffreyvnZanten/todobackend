@@ -8,7 +8,7 @@ export async function createTodo(data: typeof TodoTable.$inferInsert) {
       .insert(TodoTable)
       .values({
         title: data.title,
-        description: data.title,
+        description: data.description,
         isCompleted: data.isCompleted,
       })
       .returning();
