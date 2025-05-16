@@ -3,11 +3,12 @@ import { TodoTable } from "./db/schema/todo.schema";
 import { Todo } from "./todo.model";
 
 export function createTodo(data: typeof TodoTable.$inferInsert) {
-  return db
-    .insert(TodoTable)
-    .values(data)
-    .returning()
-    .then((r) => r[0]);
+  try {
+    db.insert(TodoTable).values(data);
+  } catch (error) {
+    console.error("Failed to create todo:", error);
+    throw error;
+  }
 }
 
 export async function insertTestData() {
