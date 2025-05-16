@@ -15,7 +15,7 @@ app.get("/", async (req: Request, res: Response) => {
   res.json({ status: "get /: ok" });
 });
 
-app.get("/todos", async (req: Request, res: Response) => {
+app.get("/todos", async (res: Response) => {
   const todos = await getAllTodos();
   res.json(todos);
 });
