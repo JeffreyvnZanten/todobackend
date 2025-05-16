@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import { db } from "./db";
 import { TodoTable } from "./db/schema/todo.schema";
 import { Todo } from "./todo.model";
@@ -15,6 +16,15 @@ export async function createTodo(data: typeof TodoTable.$inferInsert) {
     console.log("Test data inserted:", result);
   } catch (error) {
     console.error("Failed to create todo:", error);
+    throw error;
+  }
+}
+
+export async function resetTable() {
+  try {
+    await db.execute(sql`TRUNCATE TABLE users RESTART IDENTITY CASCADE;`);
+  } catch (error) {
+    console.error("Failed to reset table:", error);
     throw error;
   }
 }
