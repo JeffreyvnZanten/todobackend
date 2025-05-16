@@ -2,15 +2,17 @@ import { db } from "./db";
 import { TodoTable } from "./db/schema/todo.schema";
 import { Todo } from "./todo.model";
 
-export function createTodo(data: typeof TodoTable.$inferInsert) {
+export async function createTodo(data: typeof TodoTable.$inferInsert) {
   try {
-    db.insert(TodoTable)
+    const result = await db
+      .insert(TodoTable)
       .values({
         title: data.title,
         description: data.title,
         isCompleted: data.isCompleted,
       })
       .returning();
+    console.log("Test data inserted:", result);
   } catch (error) {
     console.error("Failed to create todo:", error);
     throw error;
