@@ -2,22 +2,12 @@ import { db } from "./db";
 import { TodoTable } from "./db/schema/todo.schema";
 import { Todo } from "./todo.model";
 
-export async function createTodo({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
-  const result = await db
+export function createTodo(data: typeof TodoTable.$inferInsert) {
+  return db
     .insert(TodoTable)
-    .values({
-      title,
-      description,
-      isCompleted: false,
-    })
-    .returning();
-  return result;
+    .values(data)
+    .returning()
+    .then((r) => r[0]);
 }
 
 export async function insertTestData() {
