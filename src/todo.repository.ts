@@ -22,7 +22,7 @@ export async function createTodo(data: typeof TodoTable.$inferInsert) {
 
 export async function resetTable() {
   try {
-    await db.execute(sql`TRUNCATE TABLE todo RESTART IDENTITY CASCADE;`);
+    await db.execute(sql`TRUNCATE TABLE my_schema RESTART IDENTITY CASCADE;`);
   } catch (error) {
     console.error("Failed to reset table:", error);
     throw error;
