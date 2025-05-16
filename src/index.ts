@@ -4,7 +4,8 @@ import { resetTable } from "./todo.repository";
 
 const port = parseInt(process.env.PORT ?? "3000", 10);
 
+// resetTable();
+
 app.listen(port, () => {
-  resetTable();
   console.log(`Server is running on port ${port}`);
 });
