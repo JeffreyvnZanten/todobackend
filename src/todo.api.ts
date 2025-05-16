@@ -15,9 +15,18 @@ app.get("/", async (req: Request, res: Response) => {
   res.json({ status: "get /: ok" });
 });
 
-app.get("/todos", async (res: Response) => {
+app.get("/todos", async (req: Request, res: Response) => {
   const todos = await getAllTodos();
   res.json(todos);
+});
+
+app.post("/addtodo", async (req: Request, res: Response) => {
+  try {
+    createTodo(req.body);
+    res.status(201).json({ message: "Todo created successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to create todo", error });
+  }
 });
 
 export default app;
