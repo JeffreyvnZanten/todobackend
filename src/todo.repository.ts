@@ -4,7 +4,7 @@ import { Todo } from "./todo.model";
 
 export function createTodo(data: typeof TodoTable.$inferInsert) {
   try {
-    db.insert(TodoTable).values(data);
+    db.insert(TodoTable).values(data).returning;
   } catch (error) {
     console.error("Failed to create todo:", error);
     throw error;
