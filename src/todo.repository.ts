@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm";
+import { sql, eq } from "drizzle-orm";
 import { db } from "./db";
 import { TodoTable } from "./db/schema/todo.schema";
 import { Todo } from "./todo.model";
@@ -56,4 +56,38 @@ export async function getAllTodos() {
     console.error("Failed to fetch todos:", error);
     throw error;
   }
+}
+
+export async function getAllCompletedTodos() {
+  try {
+    const todos: Todo[] = await db
+      .select()
+      .from(TodoTable)
+      .where(eq(TodoTable.isCompleted, true));
+    return todos;
+  } catch (error) {
+    console.error("Failed to fetch todos:", error);
+    throw error;
+  }
+}
+
+export async function getAllUnCompletedTodos() {
+  try {
+    const todos: Todo[] = await db
+      .select()
+      .from(TodoTable)
+      .where(eq(TodoTable.isCompleted, false));
+    return todos;
+  } catch (error) {
+    console.error("Failed to fetch todos:", error);
+    throw error;
+  }
+}
+
+export async function getTodos(completed?: boolean): Promise<Todo[]> {
+  const query = db.select().from(TodoTable);
+  if (completed !== undefined) {
+    query.where(eq(TodoTable.isCompleted, completed));
+  }
+  return query;
 }
