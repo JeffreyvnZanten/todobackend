@@ -1,26 +1,16 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 
-import { TodoTable } from "./db/schema/todo.schema";
-
-import { asyncHandler, validateTodoInput } from "./helper";
-import { db } from "./db";
 import { createTodo, getAllTodos, getTodos } from "./todo.repository";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", async (req: Request, res: Response) => {
-  res.json({ status: "get /: ok" });
-});
-
-app.get("/todos", async (req: Request, res: Response) => {
+app.get("/api/v1/todos", async (req: Request, res: Response) => {
   try {
-    // req.query.completed is string | undefined
     const completedParam = req.query.completed as string | undefined;
 
-    // completed === 'true' → true; 'false' → false; anders undefined
     const completed =
       completedParam === "true"
         ? true
@@ -36,7 +26,7 @@ app.get("/todos", async (req: Request, res: Response) => {
   }
 });
 
-app.post("/addtodo", async (req: Request, res: Response) => {
+app.post("/api/v1/addtodo", async (req: Request, res: Response) => {
   try {
     createTodo(req.body);
     res.status(201).json({ message: "Todo created successfully" });
@@ -44,5 +34,9 @@ app.post("/addtodo", async (req: Request, res: Response) => {
     res.status(500).json({ message: "Failed to create todo", error });
   }
 });
+
+// app.patch("/api/todos/:id", async (req: Request, res: Response) => {
+//   const { id } = req.params;
+//   const { isCompleted } = req.body;
 
 export default app;

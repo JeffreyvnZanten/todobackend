@@ -91,3 +91,16 @@ export async function getTodos(completed?: boolean): Promise<Todo[]> {
   }
   return query;
 }
+
+export async function markTodoAsCompleted(id: number) {
+  try {
+    await db
+      .update(TodoTable)
+      .set({ isCompleted: true })
+      .where(eq(TodoTable.id, id))
+      .returning();
+  } catch (error) {
+    console.error("Failed to mark todo as completed:", error);
+    throw error;
+  }
+}
