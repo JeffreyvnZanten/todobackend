@@ -9,7 +9,6 @@ export async function createTodo(data: typeof TodoTable.$inferInsert) {
       .insert(TodoTable)
       .values({
         title: data.title,
-        description: data.description,
         isCompleted: data.isCompleted,
       })
       .returning();
@@ -38,7 +37,6 @@ export async function insertTestData() {
       .insert(TodoTable)
       .values({
         title: "Test Todo",
-        description: "This is a test todo item",
         isCompleted: false,
       })
       .returning();
