@@ -5,7 +5,7 @@
     "db:generate": "drizzle-kit generate",
     "db:generate-auth-tables": "npx @better-auth/cli@latest generate",
     "db:migrate": "tsx src/db/migrate.ts",
-    "db:update": "npm run db:generate && npm run db:migrate && npm run db:generate-auth-tables",
+    "db:update": "npm run db:generate && npm run db:migrate",
     "docker:remove": "docker-compose down -v",
     "docker:build": "docker-compose up -d --build"
   },
