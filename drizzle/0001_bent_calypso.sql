@@ -1,0 +1,1 @@
+ALTER TABLE "my_schema"."todo" DROP COLUMN "description";
