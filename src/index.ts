@@ -9,8 +9,6 @@ import router from "./todo.api";
 const app = express();
 const port = parseInt(process.env.PORT ?? "3000", 10);
 
-resetTable();
-
 app.all("/api/auth/*", toNodeHandler(auth));
 
 app.use(
