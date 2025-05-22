@@ -31,7 +31,7 @@ router.post("/addtodo", async (req, res) => {
     headers: fromNodeHeaders(req.headers),
   });
 
-  if (!session?.user || session?.user.isAnonymous) {
+  if (!session?.user) {
     res.status(401).json({ error: "Not authenticated" });
     return;
   }

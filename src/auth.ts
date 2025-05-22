@@ -11,7 +11,6 @@ export const auth = betterAuth({
     provider: "pg",
     schema,
   }),
-  plugins: [anonymous()],
   emailAndPassword: {
     enabled: true,
   },
