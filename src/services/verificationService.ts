@@ -7,6 +7,7 @@ export function checkEmailWhitelist(
   res: Response,
   next: NextFunction
 ): void {
+  console.log("whitelist triggered");
   const email = (req.body.email ?? "").toLowerCase();
   if (!WHITELIST.includes(email)) {
     res.status(403).json({ error: "E-mail niet toegestaan op dit platform." });
