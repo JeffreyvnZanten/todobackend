@@ -1,17 +1,22 @@
 import { Request, Response, NextFunction } from "express";
+import dotenv from "dotenv";
 
-const WHITELIST = ["test@example.com"];
+dotenv.config();
+
+const WHITELIST = (process.env.WHITELIST ?? "")
+  .split(",")
+  .map((e) => e.trim().toLowerCase())
+  .filter(Boolean);
 
 export function checkEmailWhitelist(
   req: Request,
   res: Response,
   next: NextFunction
 ): void {
-  console.log("whitelist triggered");
+  console.log("whitelist triggered, allowed:", WHITELIST);
   const email = (req.body.email ?? "").toLowerCase();
   if (!WHITELIST.includes(email)) {
     res.status(403).json({ error: "E-mail niet toegestaan op dit platform." });
     return;
   }
-  next();
 }
