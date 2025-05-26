@@ -1,7 +1,6 @@
-import { Request, Response, Router } from "express";
-import { toNodeHandler } from "better-auth/node";
+import { NextFunction, Request, Response, Router } from "express";
 import { auth } from "./auth";
-import { fromNodeHeaders } from "better-auth/node";
+import { fromNodeHeaders, toNodeHandler } from "better-auth/node";
 import { createTodo, getAllTodos, getTodos } from "./todo.repository";
 
 const router = Router();

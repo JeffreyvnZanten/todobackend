@@ -5,9 +5,16 @@ import { toNodeHandler } from "better-auth/node";
 import { auth } from "./auth";
 import express from "express";
 import router from "./todo.api";
+import { checkEmailWhitelist } from "./services/verificationService";
 
 const app = express();
-const port = parseInt(process.env.PORT ?? "3000", 10);
+
+app.post(
+  "/api/auth/signin/email",
+  express.json(),
+  checkEmailWhitelist,
+  toNodeHandler(auth)
+);
 
 app.all("/api/auth/*", toNodeHandler(auth));
 
@@ -23,6 +30,6 @@ app.use(express.json());
 
 app.use("/api/v1", router);
 
-app.listen(port, "0.0.0.0", () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(3000, "0.0.0.0", () => {
+  console.log(`Server is running on port 3000`);
 });
