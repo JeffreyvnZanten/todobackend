@@ -10,7 +10,7 @@ import { checkEmailWhitelist } from "./services/verificationService";
 const app = express();
 
 app.post(
-  "/api/auth/signin/email",
+  "/api/auth/sign-in/email",
   express.json(),
   checkEmailWhitelist,
   toNodeHandler(auth)
