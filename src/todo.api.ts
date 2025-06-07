@@ -56,7 +56,7 @@ router.patch("/todos/:id", async (req: Request, res: Response) => {
   }
 
   console.log("PATCH aan: ", req.params.id, " body:", req.body);
-  const todoId = parseInt(req.query.id as string, 10);
+  const todoId = parseInt(req.params.id, 10);
   const updates: Partial<Todo> = req.body;
   try {
     const updated = await updateTodo(todoId, updates);
