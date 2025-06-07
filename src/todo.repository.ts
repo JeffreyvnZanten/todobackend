@@ -102,3 +102,15 @@ export async function markTodoAsCompleted(id: number) {
     throw error;
   }
 }
+
+export async function updateTodo(
+  id: number,
+  updates: Partial<Todo>
+): Promise<Todo | undefined> {
+  const [updated] = await db
+    .update(TodoTable)
+    .set(updates)
+    .where(eq(TodoTable.id, id))
+    .returning();
+  return updated;
+}

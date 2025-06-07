@@ -1,7 +1,13 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { auth } from "./auth";
 import { fromNodeHeaders, toNodeHandler } from "better-auth/node";
-import { createTodo, getAllTodos, getTodos } from "./todo.repository";
+import {
+  createTodo,
+  getAllTodos,
+  getTodos,
+  updateTodo,
+} from "./todo.repository";
+import { Todo } from "./todo.model";
 
 const router = Router();
 
@@ -39,8 +45,29 @@ router.post("/addtodo", async (req, res) => {
   res.status(201).json({ message: "Todo created successfully" });
 });
 
-// app.patch("/api/todos/:id", async (req: Request, res: Response) => {
-//   const { id } = req.params;
-//   const { isCompleted } = req.body;
+router.patch("/todos/:id", async (req: Request, res: Response) => {
+  const session = await auth.api.getSession({
+    headers: fromNodeHeaders(req.headers),
+  });
+
+  if (!session?.user) {
+    res.status(401).json({ error: "Not authenticated" });
+    return;
+  }
+
+  const todoId = parseInt(req.params.id, 10);
+  const updates: Partial<Todo> = req.body;
+  try {
+    const updated = await updateTodo(todoId, updates);
+    if (updated) {
+      res.json(updated);
+    } else {
+      res.status(404).json({ message: "Todo not found" });
+    }
+  } catch (err) {
+    console.error("Failed to update todo:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 export default router;
